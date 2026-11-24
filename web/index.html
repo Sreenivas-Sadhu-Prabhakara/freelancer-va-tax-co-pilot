@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; form-action 'self'; connect-src 'self'">
+<title>Quarterly income tax tracker for Philippine freelancers &middot; Open MSME</title>
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/accent.css">
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/theme-init.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="./">
+      <span class="dot"></span>
+      <b>Open MSME</b>
+      <span class="tag">quarterly tax tracker</span>
+    </a>
+    <span class="sp"></span>
+    <a class="home" href="https://sreenivas-sadhu-prabhakara.github.io/openmsme/">All tools</a>
+    <button class="themer" data-themer type="button">Theme</button>
+  </div>
+</header>
+
+<main>
+  <section class="apphead">
+    <div class="wrap">
+      <h1>Quarterly income tax tracker and BIR Form 1701Q figure preparer for Philippine freelancers and virtual assistants</h1>
+      <p class="lede">Record what comes in through the year. This works out the cumulative tax due at the end of each
+        quarter under the regime you have elected, credits what the earlier quarters already paid, and lays the figures
+        out ready to transcribe. It files nothing and it sends nothing anywhere.</p>
+      <div class="statusbar">
+        <span class="pill" id="todayPill">&nbsp;</span>
+        <span class="pill reg" id="regimePill">&nbsp;</span>
+        <span class="pill" id="entryPill">&nbsp;</span>
+        <span class="sp"></span>
+        <label class="yearpick" for="yearSelect">Taxable year</label>
+        <select id="yearSelect" aria-label="Taxable year"></select>
+      </div>
+      <p class="err" id="error" hidden></p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="cols calc">
+
+      <!-- ------------------------------------------------ left: what you record -->
+      <div class="stack">
+
+        <section class="card">
+          <h2>1 &middot; What you elected for this year</h2>
+          <p class="hintline">This tool does not choose for you. The election is made on registration or on the first
+            quarterly return of the year and, under NIRC sec. 24(A)(2)(b), it cannot be changed for that year.
+            <a href="https://sreenivas-sadhu-prabhakara.github.io/ph-8pct-vs-graduated/" id="decisionLink">Deciding
+            between the 8% flat rate and the graduated rates is a separate job, and a separate tool does it.</a></p>
+
+          <div class="field">
+            <label id="regimeLabel">Regime</label>
+            <div class="seg" id="regimeSeg" role="group" aria-labelledby="regimeLabel">
+              <button type="button" data-regime="eight-percent" aria-pressed="false">8% flat on gross</button>
+              <button type="button" data-regime="graduated" aria-pressed="true">Graduated rates</button>
+            </div>
+          </div>
+
+          <div class="field" id="deductionField">
+            <label id="deductionLabel">Method of deduction <span class="hint">graduated rates only</span></label>
+            <div class="seg" id="deductionSeg" role="group" aria-labelledby="deductionLabel">
+              <button type="button" data-deduction="osd" aria-pressed="true">Optional standard deduction</button>
+              <button type="button" data-deduction="itemized" aria-pressed="false">Itemised</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="check" for="hasCompensation">
+              <input type="checkbox" id="hasCompensation">
+              <span>I also have compensation income from an employer <span class="hint">a mixed-income earner gets no
+                &#8369;250,000 reduction under the 8% rate and files BIR Form No. 1701</span></span>
+            </label>
+            <label class="check" for="vatRegistered">
+              <input type="checkbox" id="vatRegistered">
+              <span>I am registered for value-added tax <span class="hint">then the 8% option is not open to you, and
+                you file VAT returns instead of the percentage tax; this tool does not compute VAT</span></span>
+            </label>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="priorYearExcess">Prior year's excess credits</label>
+              <div class="inp has-pre"><span class="pre">&#8369;</span>
+                <input type="text" id="priorYearExcess" inputmode="decimal" placeholder="0.00"></div>
+            </div>
+            <div class="field">
+              <label for="otherCredits">Other tax credits <span class="hint">year to date</span></label>
+              <div class="inp has-pre"><span class="pre">&#8369;</span>
+                <input type="text" id="otherCredits" inputmode="decimal" placeholder="0.00"></div>
+            </div>
+          </div>
+          <div class="btnrow">
+            <button type="button" class="btn primary" id="saveElection">Save the election</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>2 &middot; Record what came in and what went out</h2>
+          <form id="entryForm" autocomplete="off">
+            <div class="row2">
+              <div class="field">
+                <label for="entryDate">Date</label>
+                <div class="inp"><input type="date" id="entryDate" required></div>
+              </div>
+              <div class="field">
+                <label for="entryAmount">Amount</label>
+                <div class="inp has-pre"><span class="pre">&#8369;</span>
+                  <input type="text" id="entryAmount" inputmode="decimal" placeholder="25,000" required></div>
+              </div>
+            </div>
+            <div class="field">
+              <label for="entryKind">What it is</label>
+              <select id="entryKind">
+                <option value="receipt">Receipt &mdash; a fee, retainer or payout collected</option>
+                <option value="return">Return, refund, discount or credit note</option>
+                <option value="nonoperating">Other non-operating income</option>
+                <option value="expense">Expense</option>
+              </select>
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="entryClient">Client or note <span class="hint">optional</span></label>
+                <div class="inp"><input type="text" id="entryClient" placeholder="Acme, October retainer"></div>
+              </div>
+              <div class="field" id="withheldField">
+                <label for="entryWithheld">Tax withheld <span class="hint">per BIR Form No. 2307</span></label>
+                <div class="inp has-pre"><span class="pre">&#8369;</span>
+                  <input type="text" id="entryWithheld" inputmode="decimal" placeholder="0.00"></div>
+              </div>
+              <div class="field" id="categoryField" hidden>
+                <label for="entryCategory">Which line of the return</label>
+                <select id="entryCategory">
+                  <option value="deduction">Ordinary allowable deduction</option>
+                  <option value="cost">Cost of sales or services</option>
+                </select>
+              </div>
+            </div>
+            <div class="btnrow">
+              <button type="submit" class="btn primary">Add the entry</button>
+              <button type="button" class="btn ghost" id="pasteToggle">Paste a list instead</button>
+            </div>
+          </form>
+
+          <div id="pasteBox" hidden>
+            <div class="field">
+              <label for="pasteText">One entry per line: date, amount, kind, note, tax withheld, expense category
+                <span class="hint">only the date and the amount are needed; a comma or a tab separates them; put an
+                amount with a thousands separator in quotes</span></label>
+              <textarea id="pasteText" rows="6" placeholder="2026-02-15,25000,receipt,Acme retainer,2500
+2026-03-01,&quot;3,500&quot;,expense,Internet,,deduction"></textarea>
+            </div>
+            <div class="btnrow">
+              <button type="button" class="btn primary" id="pasteAdd">Read the list</button>
+              <button type="button" class="btn ghost" id="pasteCancel">Cancel</button>
+            </div>
+            <ul class="problems" id="pasteProblems" hidden></ul>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>3 &middot; This year's entries <span class="count" id="entryCount"></span></h2>
+          <div class="tablewrap">
+            <table class="breakdown" id="entryTable">
+              <thead><tr>
+                <th>Date</th><th>Q</th><th>What</th><th>Note</th>
+                <th class="num">Amount</th><th class="num">Withheld</th><th></th>
+              </tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p class="empty" id="entryEmpty">Nothing recorded for this year yet.</p>
+          <div class="btnrow">
+            <a class="btn ghost" id="exportEntries" href="/api/export?what=entries" download>Download the entries</a>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Rates, thresholds and filing dates</h2>
+          <p class="hintline">Every figure this tool uses, with the provision it comes from. All of them are indicative.
+            Confirm the current ones with the Bureau of Internal Revenue before you file.</p>
+          <p class="note" id="overrideNote" hidden>You are using figures of your own, not the published ones.</p>
+          <div class="tablewrap">
+            <table class="breakdown" id="constantsTable">
+              <thead><tr><th>Figure</th><th>Value</th><th>Source</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <details class="assumptions" id="overrideBox">
+            <summary>Change a figure, if the law has moved</summary>
+            <p class="hintline">A rate is a whole percentage figure. An amount is in pesos. What you save here is
+              stored in your own data file and used instead of the published figures until you reset it.</p>
+            <div class="row2">
+              <div class="field">
+                <label for="ovRate8">8% income tax rate</label>
+                <div class="inp has-suf"><input type="text" id="ovRate8" inputmode="decimal"><span class="suf">%</span></div>
+              </div>
+              <div class="field">
+                <label for="ovAllowance">8% allowable reduction</label>
+                <div class="inp has-pre"><span class="pre">&#8369;</span><input type="text" id="ovAllowance" inputmode="decimal"></div>
+              </div>
+              <div class="field">
+                <label for="ovThreshold">VAT registration threshold</label>
+                <div class="inp has-pre"><span class="pre">&#8369;</span><input type="text" id="ovThreshold" inputmode="decimal"></div>
+              </div>
+              <div class="field">
+                <label for="ovOSD">Optional standard deduction</label>
+                <div class="inp has-suf"><input type="text" id="ovOSD" inputmode="decimal"><span class="suf">%</span></div>
+              </div>
+            </div>
+            <div class="btnrow">
+              <button type="button" class="btn primary" id="saveRates">Use these figures</button>
+              <button type="button" class="btn ghost" id="resetRates">Back to the published ones</button>
+            </div>
+          </details>
+        </section>
+      </div>
+
+      <!-- ------------------------------------------------ right: the position -->
+      <div class="stack sticky">
+        <section class="card">
+          <div class="seg quarters" id="quarterSeg" role="group" aria-label="Quarter">
+            <button type="button" data-quarter="1" aria-pressed="true">Q1</button>
+            <button type="button" data-quarter="2" aria-pressed="false">Q2</button>
+            <button type="button" data-quarter="3" aria-pressed="false">Q3</button>
+            <button type="button" data-quarter="4" aria-pressed="false">Annual</button>
+          </div>
+
+          <div class="result-primary">
+            <div class="k" id="posLabel">&nbsp;</div>
+            <div class="v" id="posValue">&#8369;0.00</div>
+            <div class="sub" id="posSub">&nbsp;</div>
+          </div>
+
+          <h3 class="blockhead">The year to date, and what is credited against it</h3>
+          <div class="tablewrap">
+            <table class="breakdown" id="positionTable"><tbody></tbody></table>
+          </div>
+
+          <div class="field paid">
+            <label for="paidAmount" id="paidLabel">What you actually paid with this quarter's return</label>
+            <p class="hintline">The next quarter credits what you paid, not what this tool worked out. Leave it alone
+              and the tool assumes its own figure and says so.</p>
+            <div class="row2">
+              <div class="inp has-pre"><span class="pre">&#8369;</span>
+                <input type="text" id="paidAmount" inputmode="decimal" placeholder="0.00"></div>
+              <div class="inp"><input type="date" id="paidDate" aria-label="Date filed"></div>
+            </div>
+            <div class="btnrow">
+              <button type="button" class="btn primary" id="savePayment">Record the payment</button>
+              <button type="button" class="btn ghost" id="clearPayment">I have not paid this quarter</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2 id="figuresHead">Figures to transcribe</h2>
+          <p class="hintline" id="figuresCovers">&nbsp;</p>
+          <div id="figuresBody"></div>
+          <p class="note" id="figuresCaveat">&nbsp;</p>
+          <div class="btnrow">
+            <a class="btn ghost" id="exportFigures" href="/api/export?what=figures" download>Download these figures</a>
+            <button type="button" class="btn ghost" id="printBtn">Print</button>
+          </div>
+        </section>
+
+        <section class="card" id="recomputedCard" hidden>
+          <h2>The election has come apart</h2>
+          <p class="note bad" id="recomputedWhy">&nbsp;</p>
+          <div class="tablewrap">
+            <table class="breakdown" id="recomputedTable">
+              <thead><tr><th></th><th class="num">Taxable</th><th class="num">Tax due</th>
+                <th class="num">Credits</th><th class="num">To pay</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card" id="projectionCard" hidden>
+          <h2>At this pace</h2>
+          <p id="projectionText">&nbsp;</p>
+          <p class="hintline">A straight line through what is recorded for the quarters that have ended. It is not a
+            forecast: a freelancer's year is rarely even.</p>
+        </section>
+
+        <section class="card">
+          <h2>Filing dates</h2>
+          <div class="tablewrap">
+            <table class="breakdown" id="deadlineTable">
+              <thead><tr><th>Due</th><th>Form</th><th>What</th><th>Status</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p class="note">These are the statutory dates. They are to be confirmed with the Bureau of Internal Revenue,
+            and this tool does not move one for a weekend or a public holiday.</p>
+        </section>
+
+        <section class="card">
+          <h2>What this tells you, and what it does not</h2>
+          <ul class="notes" id="notesList"></ul>
+        </section>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>Open MSME &middot; runs on your own computer &middot; nothing leaves it &middot; MIT</span>
+    <span><a href="https://sreenivas-sadhu-prabhakara.github.io/openmsme/">All tools</a></span>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

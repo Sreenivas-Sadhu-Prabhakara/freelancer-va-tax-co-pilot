@@ -1,0 +1,111 @@
+/* Parts of this tool's interface that the shared kit does not cover. */
+
+.apphead { padding: 28px 0 18px; border-bottom: 1px solid var(--line); }
+.apphead h1 { margin: 0 0 10px; font-size: clamp(1.3rem, 1.05rem + 1.1vw, 1.75rem); line-height: 1.15; font-weight: 800; max-width: 34ch; }
+.apphead .lede { margin: 0; font-size: .95rem; color: var(--ink-2); max-width: 70ch; }
+
+.statusbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.statusbar .sp { margin-left: auto; }
+.statusbar .yearpick { font-size: .8rem; color: var(--ink-3); font-weight: 600; }
+.statusbar select { width: auto; padding: 6px 10px; font-size: .85rem; }
+
+.err { margin: 12px 0 0; font-size: .88rem; color: var(--bad); background: var(--surface-2);
+  border: 1px solid var(--line); border-left: 3px solid var(--bad); border-radius: 8px; padding: 10px 12px; }
+
+.stack { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.stack.sticky { position: static; }
+@media (min-width: 860px) { .stack.sticky { position: sticky; top: 70px; } }
+
+/* A grid or flex child defaults to min-width:auto, so without this a wide
+   table would size its track to its own content and drag the whole page into
+   horizontal scroll instead of scrolling inside its own box. The kit does the
+   same for the children of .cols; these are the containers this tool adds. */
+.stack > *, .row2 > *, .statusbar > *, .seg > * { min-width: 0; }
+.card, .field, .inp, .tablewrap { max-width: 100%; }
+
+/* Two fields side by side is a desk layout. On a phone they stack. */
+@media (max-width: 620px) {
+  .row2 { grid-template-columns: 1fr; }
+  .seg.quarters button { flex: 1 1 60px; }
+}
+
+.blockhead { margin: 22px 0 10px; font-size: 1rem; }
+.hintline { font-size: .82rem; color: var(--ink-3); margin: 0 0 14px; }
+.count { font-family: var(--mono); font-size: .78rem; color: var(--ink-3); font-weight: 500; }
+
+label.check { display: flex; gap: 9px; align-items: flex-start; font-size: .88rem; font-weight: 500;
+  color: var(--ink-2); margin-bottom: 10px; cursor: pointer; }
+label.check input { width: auto; margin: 3px 0 0; accent-color: var(--tool); }
+label.check .hint { display: block; font-weight: 400; color: var(--ink-3); font-size: .78rem; }
+
+textarea { width: 100%; font: inherit; font-size: .9rem; font-family: var(--mono); padding: 11px 13px;
+  border-radius: 9px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink);
+  resize: vertical; min-height: 110px; }
+textarea:focus { outline: 2px solid var(--tool); outline-offset: 1px; border-color: var(--tool); }
+
+.seg.quarters { margin-bottom: 16px; }
+.seg.quarters button { flex: 1 1 auto; }
+
+.tablewrap { overflow-x: auto; }
+.breakdown th { font-size: .78rem; color: var(--ink-3); font-weight: 600; white-space: nowrap; }
+.breakdown td.what { color: var(--ink-3); font-size: .82rem; }
+/* A date and a peso figure are read as one token, so neither is ever broken
+   across lines; the table scrolls inside its own box instead. */
+.breakdown td.num, .breakdown td.date, .breakdown td.q { white-space: nowrap; }
+#entryTable, #deadlineTable, #recomputedTable { min-width: 460px; }
+#positionTable td:first-child { width: 58%; }
+/* The list of published figures is three columns of prose, not of amounts: a
+   whole rate table or a statutory citation has to wrap, or the row grows to
+   the width of its longest line and leaves the rest of the table blank. */
+#constantsTable { min-width: 520px; }
+#constantsTable td.num { white-space: normal; text-align: left; font-size: .82rem; }
+#constantsTable th:nth-child(1), #constantsTable td:nth-child(1) { width: 24%; }
+#constantsTable th:nth-child(2), #constantsTable td:nth-child(2) { width: 32%; }
+.breakdown tr.head td { font-weight: 700; color: var(--ink); padding-top: 14px; }
+.breakdown tr.sub td:first-child { padding-left: 14px; }
+.breakdown td.drop { width: 1%; }
+.breakdown .src { display: block; font-size: .76rem; color: var(--ink-3); }
+.breakdown td .why { display: block; font-size: .76rem; color: var(--ink-3); margin-top: 2px; }
+.breakdown .item { font-family: var(--mono); font-size: .74rem; color: var(--ink-3); }
+.breakdown .q { font-family: var(--mono); font-size: .78rem; color: var(--ink-3); }
+
+.result-primary .v.over { color: var(--ok); }
+.result-primary .sub { white-space: pre-line; }
+
+.paid { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+.paid .row2 { gap: 10px; }
+
+.drop-btn { font: inherit; font-size: .78rem; cursor: pointer; padding: 4px 8px; border-radius: 6px;
+  border: 1px solid var(--line-2); background: var(--surface); color: var(--ink-3); line-height: 1; }
+.drop-btn:hover { color: var(--bad); border-color: var(--bad); }
+
+.problems { list-style: none; padding: 0; margin: 12px 0 0; font-size: .85rem; }
+.problems li { padding: 8px 11px; margin: 7px 0; border-radius: 8px; background: var(--surface-2);
+  border: 1px solid var(--line); border-left: 3px solid var(--warn); color: var(--ink-2); }
+
+.notes { list-style: none; padding: 0; margin: 0; font-size: .86rem; }
+.notes li { padding: 10px 12px; margin: 9px 0; border-radius: 8px; background: var(--surface-2);
+  border: 1px solid var(--line); border-left: 3px solid var(--line-2); color: var(--ink-2); }
+.notes li.warn { border-left-color: var(--warn); }
+.notes li.stop { border-left-color: var(--bad); }
+.notes li .src { display: block; font-size: .76rem; color: var(--ink-3); margin-top: 5px; }
+
+.note.bad { border-left-color: var(--bad); color: var(--ink-2); }
+.note.good { border-left-color: var(--ok); color: var(--ink-2); }
+
+.figblock { margin: 0 0 18px; }
+.figblock h3 { margin: 0 0 8px; font-size: .92rem; color: var(--ink); }
+
+.status-overdue { color: var(--bad); font-weight: 600; }
+.status-today { color: var(--bad); font-weight: 600; }
+.status-soon { color: var(--warn); font-weight: 600; }
+.status-upcoming { color: var(--ink-3); }
+
+a.btn { text-decoration: none; display: inline-block; }
+a.btn:hover { text-decoration: none; }
+.busy { opacity: .55; pointer-events: none; }
+
+@media print {
+  .stack.sticky { position: static; }
+  .apphead .statusbar, .paid, #entryForm, #pasteBox, #overrideBox { display: none; }
+}

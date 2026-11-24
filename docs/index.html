@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; form-action 'self'">
+<title>Quarterly income tax tracker and 1701Q figure preparer for Philippine freelancers &middot; Open MSME</title>
+<meta name="description" content="Free single-binary tool for Philippine freelancers, virtual assistants and home-based workers: track gross receipts through the year, work out the cumulative quarterly tax under the 8% or graduated regime, credit what the earlier quarters paid, and prepare the figures for BIR Forms 1701Q, 1701 and 1701A.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Quarterly income tax tracker and 1701Q figure preparer for Philippine freelancers">
+<meta property="og:description" content="The cumulative-less-credits arithmetic a Philippine quarterly income tax return runs on, worked out on your own computer. It prepares figures; it files nothing.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/accent.css">
+<script src="assets/theme-init.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="./">
+      <span class="dot"></span>
+      <b>Open MSME</b>
+      <span class="tag">quarterly tax tracker</span>
+    </a>
+    <span class="sp"></span>
+    <a class="home" href="https://sreenivas-sadhu-prabhakara.github.io/openmsme/">All tools</a>
+    <button class="themer" data-themer type="button">Theme</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Professional &amp; business services &middot; Philippines</div>
+      <h1>Quarterly income tax tracker and BIR Form 1701Q figure preparer for Philippine freelancers and virtual assistants</h1>
+      <p class="lede">A single-binary tool that follows a freelancer's taxable year: record the fees as they come in,
+        and it works out the cumulative tax due at the end of each quarter under the regime you elected, credits what
+        the earlier quarters already paid, and lays the figures out ready to transcribe onto the return. It runs on
+        your own computer and sends nothing anywhere. It prepares figures; it files nothing.</p>
+      <div class="who">
+        <span class="pill">Solo VAs, freelance marketers, home-based workers</span>
+        <span class="pill">Philippines &middot; BIR</span>
+        <span class="pill reg">NIRC secs. 74, 51, 56 &amp; 116 &middot; TRAIN law &middot; BIR 1701Q / 1701 / 1701A</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="prose">
+
+      <h2>What it does</h2>
+      <p>Registering with the Bureau of Internal Revenue is the part a Philippine freelancer is told about. The part
+        nobody explains is what happens for the rest of the year: three quarterly income tax returns, each reporting
+        the <strong>whole year to that point</strong> and crediting the tax the earlier quarters already paid, and then
+        an annual return that does the same thing over the full twelve months. Get the crediting wrong and you either
+        pay the same tax twice or file a figure you cannot support.</p>
+      <p>This tool does that one job properly:</p>
+      <ul>
+        <li>records what came in &mdash; fees, retainers, platform payouts &mdash; and what went out, with the tax your
+          clients withheld on their certificates;</li>
+        <li>works out, at the end of each quarter, the <strong>cumulative</strong> tax due on the year to date under the
+          regime you elected, and subtracts the year-to-date credits: the prior year's excess, the tax the earlier
+          quarters paid, and the withholding;</li>
+        <li>shows what is left to pay, or reports an <strong>overpayment</strong> in brackets as the return does,
+          rather than handing you a negative payment;</li>
+        <li>keeps the quarterly percentage tax separate, because that return covers <em>one quarter only</em> and
+          credits nothing &mdash; treating it like the income tax return is the commonest way to get a quarter wrong;</li>
+        <li>lays out the figures a quarterly or annual return asks for, named line by line, ready to transcribe;</li>
+        <li>gives you the year's filing dates with the provision each one comes from;</li>
+        <li>warns when gross passes the registration threshold, which ends the 8% election for the whole year, and
+          works the year again under the graduated rates with what you already paid credited against it.</li>
+      </ul>
+
+      <h2>What it does not do, and why</h2>
+      <div class="note"><strong>It does not choose your regime.</strong> Whether the 8% flat rate or the graduated
+        rates cost you less is a different question, answered once a year before you elect, and
+        <a href="https://sreenivas-sadhu-prabhakara.github.io/ph-8pct-vs-graduated/">a separate tool in this family
+        already answers it</a>. Here the regime is an <em>input</em>: you tell this tool what you elected, and it
+        tracks the year under it. We do not ship two tools for one job.</div>
+      <p>It also does not file, submit or e-file anything, it does not validate a return, and it does not reproduce the
+        Bureau's form. What it produces is a named list of figures to copy onto the real return, on paper or in the
+        Bureau's own filing software. And it does not compute a penalty: surcharge, interest and the compromise
+        penalty on a late or incorrect return are for the Bureau to tell you.</p>
+
+      <h2>Who it's for</h2>
+      <p>Philippine self-employed individuals and professionals registered with the BIR who file their own returns:
+        virtual assistants, freelance writers, designers and marketers, home-based customer-support workers,
+        consultants and solo practitioners. It assumes you are keeping your own books in a spreadsheet or a notebook
+        and want the quarterly arithmetic done without a bookkeeper.</p>
+      <p>It handles a <strong>mixed-income earner</strong> &mdash; somebody with a salary as well as freelance work
+        &mdash; on the business side only, and says so: compensation income goes on the annual return, and a
+        mixed-income earner gets no &#8369;250,000 reduction against business income under the 8% rate.</p>
+
+      <h2>The rule it implements</h2>
+      <p>The quarterly income tax return of an individual is <strong>cumulative</strong>. Under
+        <strong>NIRC sec. 74(A)</strong>, as amended by the TRAIN law (Republic Act No. 10963), an individual
+        receiving self-employment income files a declaration of estimated income for the current taxable year
+        <em>on or before 15 May of the same taxable year</em> &mdash; the date the TRAIN law moved from 15 April.
+        <strong>Sec. 74(B)</strong> then provides that the tax is paid in four instalments: the first at the time of
+        the declaration, and <em>&ldquo;the second and third shall be paid on August 15 and November 15 of the current
+        year, respectively&rdquo;</em>, with the fourth <em>&ldquo;on or before April 15 of the following calendar year
+        when the final adjusted income tax return is due to be filed&rdquo;</em>. That fourth instalment is the annual
+        return under <strong>sec. 51(C)(1)</strong>. There is no fourth quarterly return: the fourth quarter is settled
+        on the annual one.</p>
+      <p>So each return reports the year to date and credits what came before it. The arithmetic this tool implements,
+        for every quarter <em>n</em>, is:</p>
+      <pre><code>taxable to date   = (income to date)  less (the deduction or allowance to date)
+tax due to date   = the elected rate applied to the taxable income to date
+credits to date   = prior year's excess
+                  + tax PAID with the returns for quarters 1 .. n-1
+                  + creditable tax withheld in quarters 1 .. n
+                  + other credits
+tax payable       = tax due to date  less  credits to date
+
+   positive -> that is what you pay this quarter
+   negative -> an overpayment, carried against the rest of the year</code></pre>
+      <p>Two consequences fall out of that, and both are handled here rather than left to the reader. A
+        <strong>loss quarter after a profitable one</strong> pulls the cumulative tax below what has already been paid,
+        so the quarter produces an overpayment and nothing to pay &mdash; never a negative payment. And the figure
+        credited for the earlier quarters is <strong>what you actually paid</strong>, not what the tool thinks you
+        should have paid; where you have not told it, it says so on the figure itself.</p>
+
+      <h3>The two regimes, as inputs</h3>
+      <p>Under <strong>NIRC sec. 24(A)(2)(b)</strong>, a self-employed individual whose gross sales or receipts do not
+        exceed the value-added tax threshold, and who is not VAT-registered, may elect a flat <strong>8%</strong> on
+        gross sales, receipts and other non-operating income <em>in excess of &#8369;250,000</em>, in lieu of both the
+        graduated income tax and the percentage tax. The election is signified on registration or on the first
+        quarterly return of the year and is <strong>irrevocable for that taxable year</strong>. The &#8369;250,000
+        reduction belongs to an individual earning purely from business or a profession: BIR Form No. 1701 states it as
+        <em>&ldquo;not applicable if with compensation income&rdquo;</em>.</p>
+      <p>Otherwise the graduated rates under <strong>sec. 24(A)(2)(a)</strong> apply to net income, with either
+        itemised deductions or the <strong>40% optional standard deduction</strong> under sec. 34(L) &mdash; which the
+        return computes from sales <em>net</em> of returns, allowances and discounts, not from gross. Alongside it, a
+        non-VAT person pays the quarterly <strong>percentage tax</strong> under sec. 116 on BIR Form No. 2551Q, within
+        twenty-five days after the quarter ends (sec. 128(A)(1)). That return is per quarter and credits nothing.</p>
+      <p>This tool keeps a rate table per taxable year, because the law has moved twice within living memory of a
+        freelancer's filing history: the graduated rates fell in 2023, and the percentage tax was cut to 1% from
+        1 July 2020 to 30 June 2023 by the CREATE law before returning to 3%. Both percentage-tax changes fell on the
+        first day of a quarter, so no quarter has ever straddled two rates.</p>
+
+      <h3>Crossing the threshold</h3>
+      <p>If gross passes the &#8369;3,000,000 threshold during the year while you are on the 8% election, the election
+        <strong>falls away for the whole year</strong>. Under Revenue Regulations No. 8-2018 the income tax is
+        recomputed under the graduated rates, with the 8% already paid allowed as a credit, and registration must be
+        updated within the month following the month in which the threshold was exceeded. This tool detects that,
+        names the quarter, and works the year again the other way with what you paid credited &mdash; because at that
+        point the figures on the face of your quarterly returns are no longer the ones to file.</p>
+
+      <h2>Install &amp; run</h2>
+      <p>It is one Go program with no dependencies beyond the standard library, so there is nothing to install and
+        nothing to configure.</p>
+      <pre><code>git clone https://github.com/sreenivas-sadhu-prabhakara/freelancer-va-tax-co-pilot.git
+cd freelancer-va-tax-co-pilot
+
+# build a single binary
+go build -o freelancer-va-tax-co-pilot .
+./freelancer-va-tax-co-pilot
+
+# or just run it
+go run .</code></pre>
+      <p>Then open <code>http://127.0.0.1:8080/</code> in a browser. Two flags change the defaults:</p>
+      <pre><code>./freelancer-va-tax-co-pilot -addr 127.0.0.1:9000 -data ~/tax/2026.json</code></pre>
+      <p>It also runs once from the command line, which is what somebody filling in a return at the kitchen table
+        wants:</p>
+      <pre><code># the year's position and the figures for one return
+./freelancer-va-tax-co-pilot -report -year 2026 -quarter 2
+
+# every rate, threshold and filing date, with its statutory reference
+./freelancer-va-tax-co-pilot -constants
+
+# this year's filing dates, and how far away each one is
+./freelancer-va-tax-co-pilot -deadlines</code></pre>
+      <p>Entries can be typed one at a time or pasted in from a spreadsheet, one per line &mdash; date, amount, kind,
+        note, tax withheld, expense category. Only the date and the amount are needed:</p>
+      <pre><code>2026-02-15,25000,receipt,Acme February retainer,2500
+2026-03-01,"12,500",receipt,Delta project
+2026-03-04,750,refund,Delta overbilled
+2026-03-08,2400,expense,Internet,,deduction</code></pre>
+      <p>A line that cannot be read is reported by its number and left out. Nothing is guessed: an amount split across
+        two fields by an unquoted thousands separator is named as such rather than half-read.</p>
+
+      <h2>What it stores</h2>
+      <p>One JSON file on your own computer, <code>./freelancer-va-tax-co-pilot-data.json</code> by default, holding
+        your entries, your election and any figures you have overridden &mdash; one record per taxable year, so last
+        year stays where you left it. It is written atomically, to a temporary file that is then renamed, so an
+        interrupted write cannot corrupt it, and it is created readable only by you.</p>
+      <p>Nothing else leaves the machine. The tool binds to <strong>127.0.0.1</strong>, makes no outbound network calls
+        of any kind, has no accounts, no analytics and no telemetry, and loads no fonts, scripts or styles from
+        anywhere but itself. Your clients' names and your fees never go anywhere. Delete that one file and the tool
+        knows nothing.</p>
+
+      <h2>Features</h2>
+      <div class="featgrid">
+        <div class="feat">
+          <h3>Cumulative, with credits</h3>
+          <p>Each quarter is the year to date, less the prior year's excess, less what the earlier quarters paid, less
+            the withholding. The four payments add up to the year's tax exactly once.</p>
+        </div>
+        <div class="feat">
+          <h3>An overpayment is an overpayment</h3>
+          <p>A loss quarter, or a credit note, after a profitable quarter produces an overpayment carried forward and
+            nothing to pay &mdash; never a negative payment on a return that has no field for one.</p>
+        </div>
+        <div class="feat">
+          <h3>What you paid, not what we think</h3>
+          <p>Record the payment you actually made with each return and the next quarter credits that. Until you do,
+            the tool says on the figure itself that it is assuming its own.</p>
+        </div>
+        <div class="feat">
+          <h3>The percentage tax kept apart</h3>
+          <p>2551Q covers one quarter and credits nothing, unlike the income tax return beside it. The rate is read for
+            the quarter, so 2020 and 2023 come out right.</p>
+        </div>
+        <div class="feat">
+          <h3>Figures, named line by line</h3>
+          <p>Grouped the way the return groups them, rounded to whole pesos as the return asks, with the exact
+            centavos still shown. Item numbers only where they could be sourced.</p>
+        </div>
+        <div class="feat">
+          <h3>The threshold, before it bites</h3>
+          <p>It names the quarter gross passed &#8369;3,000,000, works the year again under the graduated rates with
+            the 8% credited, and says what registration has to change.</p>
+        </div>
+        <div class="feat">
+          <h3>Every figure in one place</h3>
+          <p>Each rate, threshold and filing date is a named constant with the provision it comes from, published in
+            the interface and by <code>-constants</code>, and every one of them is yours to override.</p>
+        </div>
+        <div class="feat">
+          <h3>Amounts in whole centavos</h3>
+          <p>No floating point anywhere. A year of entries adds up exactly, and the rounding to pesos follows the
+            return's own rule: 49 centavos down, 50 up.</p>
+        </div>
+      </div>
+
+      <details class="assumptions">
+        <summary>Rates, thresholds and dates used &mdash; all indicative, all overridable</summary>
+        <ul>
+          <li><strong>8% income tax rate</strong>, on gross sales, receipts and other non-operating income in excess of
+            the allowance, in lieu of the graduated income tax and the percentage tax &mdash; NIRC sec. 24(A)(2)(b), as
+            amended by the TRAIN law (R.A. No. 10963).</li>
+          <li><strong>&#8369;250,000 allowable reduction</strong> under the 8% option, for an individual earning purely
+            from business or a profession &mdash; NIRC sec. 24(A)(2)(b); stated on BIR Form No. 1701 (January 2018
+            ENCS) at Part V schedule 3.B item 29 as <em>&ldquo;not applicable if with compensation income&rdquo;</em>.
+            It is deducted once against the year to date, not once a quarter.</li>
+          <li><strong>&#8369;3,000,000 VAT registration threshold</strong>, which is also the ceiling on electing the
+            8% rate and on paying the percentage tax instead of VAT &mdash; NIRC secs. 109(1)(BB) and 116, as amended
+            by the TRAIN law.</li>
+          <li><strong>Graduated rates, 2018 to 2022:</strong> nil to &#8369;250,000 at nil; then 20%, 25%, 30%, 32% and
+            35% over &#8369;250,000, &#8369;400,000, &#8369;800,000, &#8369;2,000,000 and &#8369;8,000,000 &mdash; NIRC
+            sec. 24(A)(2)(a), TRAIN law first schedule.</li>
+          <li><strong>Graduated rates, 2023 onwards:</strong> the same bands at 15%, 20%, 25%, 30% and 35% &mdash; the
+            TRAIN law's second schedule. A year is taxed on the table that applied to it.</li>
+          <li><strong>40% optional standard deduction</strong> of sales net of returns, allowances and discounts
+            &mdash; NIRC sec. 34(L); BIR Form No. 1701 item 17 computes it from net sales, not from gross.</li>
+          <li><strong>Percentage tax:</strong> 3% of the quarter's gross sales or receipts under NIRC sec. 116; 1% from
+            1 July 2020 to 30 June 2023 under sec. 13 of the CREATE law (R.A. No. 11534); back to 3% from 1 July 2023
+            per BIR RMC No. 69-2023.</li>
+          <li><strong>Filing dates:</strong> the quarterly income tax return on 15 May, 15 August and 15 November of
+            the taxable year (NIRC secs. 74(A) and 74(B)); the annual return on 15 April of the following year (sec.
+            51(C)(1)); the percentage tax return within 25 days after each quarter ends (sec. 128(A)(1)).</li>
+          <li><strong>Two instalments:</strong> where the annual tax due exceeds &#8369;2,000, an individual may elect
+            to pay in two equal instalments, the second on or before 15 October following the close of the calendar
+            year &mdash; NIRC sec. 56(A)(2) as amended by the TRAIN law; BIR Form No. 1701 item 25 allows 50% or less
+            of the tax due to be deferred.</li>
+          <li><strong>An individual's taxable year is the calendar year</strong> (NIRC sec. 43), so the quarters are
+            always January&ndash;March, April&ndash;June, July&ndash;September and October&ndash;December, and no
+            fiscal-year option is offered.</li>
+          <li><strong>Rounding:</strong> amounts are held in whole centavos and rounded to pesos only for
+            transcription, by the return's own rule &mdash; <em>&ldquo;49 Centavos or Less drop down; 50 or more round
+            up&rdquo;</em>.</li>
+        </ul>
+      </details>
+
+      <details class="assumptions">
+        <summary>What could not be sourced, and what it means for you</summary>
+        <ul>
+          <li><strong>The item numbers of BIR Form No. 1701Q could not be sourced</strong> from a published copy of the
+            form. The quarterly figures are therefore <em>named and not numbered</em> &mdash; match them to your copy
+            of the return by their labels. The item numbers offered for BIR Form No. 1701 were read from the form
+            itself (January 2018 ENCS).</li>
+          <li><strong>BIR Form No. 1701A was not obtained either.</strong> The tool names it as the return to use when
+            you are purely self-employed and on the 8% rate or the optional standard deduction, and it lists the same
+            figures without item numbers.</li>
+          <li><strong>The &#8369;3,000,000 threshold is subject to a three-yearly adjustment</strong> to present value
+            using the consumer price index under the TRAIN law. No adjustment to this threshold had been issued at the
+            time of writing, so it stands at three million pesos &mdash; but confirm it, and override it here if it has
+            moved.</li>
+          <li><strong>A deadline falling on a weekend or a public holiday is flagged, not moved.</strong> This tool
+            states the statutory date and tells you when it lands on a Saturday or a Sunday; what the working date then
+            is, is for the Bureau to say. Philippine public holidays are not encoded at all.</li>
+          <li><strong>Penalties are not computed.</strong> The Ease of Paying Taxes Act (R.A. No. 11976) reduced the
+            surcharge and the interest for micro and small taxpayers, but the compromise penalty is a schedule and the
+            interest runs from facts this tool does not hold. Ask the Bureau what is due on a late return.</li>
+          <li><strong>The basis of your records is your own.</strong> Whether you record a fee when you invoice it or
+            when it is collected determines what the figures mean; the Ease of Paying Taxes Act moved VAT and the
+            percentage tax onto gross <em>sales</em>. This tool totals what you give it and does not second-guess it.</li>
+          <li><strong>The percentage tax base</strong> used here is the quarter's sales net of returns, allowances and
+            discounts. Other non-operating income is not a sale or receipt of the business and is left out of it. If
+            you have non-operating income, confirm the treatment.</li>
+        </ul>
+      </details>
+
+      <div class="note">This tool works out figures from what you record. It does not check them against your books,
+        your invoices or your clients' certificates, it does not file, submit or validate anything, it does not compute
+        penalties, and it is not tax, accounting or legal advice. <strong>Confirm every rate, threshold and filing date
+        with the Bureau of Internal Revenue or a qualified practitioner before you file.</strong></div>
+    </section>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>Open MSME &middot; open-source tool for MSMEs in India &amp; the Philippines &middot; MIT</span>
+    <span><a href="https://sreenivas-sadhu-prabhakara.github.io/openmsme/">All tools</a></span>
+  </div>
+</footer>
+
+<script src="assets/ui.js"></script>
+</body>
+</html>
